@@ -1,0 +1,4 @@
+﻿venv/
+__pycache__/
+*.pyc
+birthday_surprise_v1.tar.gz

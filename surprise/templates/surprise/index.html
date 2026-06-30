@@ -1,0 +1,257 @@
+{% extends 'surprise/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="loading-screen">
+    <div class="loader">
+        <div class="heart">❤️</div>
+        <h1>{{ settings.loading_text }}</h1>
+        <div class="loading-bar"><div class="loading-progress"></div></div>
+        <p>Someone created something special just for you...</p>
+    </div>
+</div>
+
+<div id="website">
+    <div class="background"></div>
+    <div class="heart-cursor" id="heartCursor">❤️</div>
+    <div class="floating-hearts" aria-hidden="true">
+        <span>❤️</span>
+        <span>💖</span>
+        <span>✨</span>
+        <span>💕</span>
+        <span>🌸</span>
+        <span>❤️</span>
+    </div>
+
+    <section id="countdown-section">
+        <div class="countdown-card">
+            <div class="heart-icon">❤️</div>
+
+                <div class="countdown-photo">
+                    <img src="{{ settings.hero_photo1.url }}" alt="{{ settings.girl_name }}">
+                </div>
+
+
+                <div class="top-text">
+
+                    <h1>Rukiye Ma'am Sahab ❤️</h1>
+
+                    <p>{{ settings.countdown_message }}</p>
+
+                    <h3 class="wait-text">
+                        {{ settings.wait_message }}
+                    </h3>
+
+                    <div class="daily-note">
+
+                        <div class="daily-card">
+
+                            <div id="dailyPreview">
+
+                                <button id="dailyMusicBtn" class="daily-music-btn">
+                                    🎵 Read Today's Surprise ❤️
+                                </button>
+
+                            </div>
+
+                            <div id="dailyContent" class="daily-content">
+
+                                <h3 class="daily-title">
+                                    💌 Aaj Ki Shayari
+                                </h3>
+
+                                <p id="dailyShayari">
+                                    Loading...
+                                </p>
+
+                                <div class="today-song-name">
+                                    🎵 <strong id="songName"></strong>
+                                </div>
+
+                            </div>
+
+                            <audio id="dailySong" preload="auto"></audio>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            <div id="countdown" class="countdown-grid">
+                <div class="time-box"><span id="days">00</span><small>DAYS</small></div>
+                <div class="time-box"><span id="hours">00</span><small>HOURS</small></div>
+                <div class="time-box"><span id="minutes">00</span><small>MINUTES</small></div>
+                <div class="time-box"><span id="seconds">00</span><small>SECONDS</small></div>
+            </div>
+
+            <div class="login-box locked">
+                <h2>🔒 Secret Login</h2>
+                <p id="gateMessage">Try kar lijiye... Shayad aaj khul jaye 😉</p>
+                <input id="girlName" type="text" placeholder="Enter Your Name">
+                <input id="password" type="password" placeholder="Cute Password">
+                <button id="unlockButton">{{ settings.unlock_button_text }}</button>
+                <p id="loginMessage"></p>
+            </div>
+        </div>
+    </section>
+
+    <main id="experience" aria-live="polite">
+        <section id="hero-section" class="story-section">
+            <div class="hero-photo-wrap">
+                <img src="{{ settings.hero_photo2.url }}" class="hero-image" alt="{{ settings.girl_name }}">
+            </div>
+            <p class="eyebrow">For the one who makes ordinary days beautiful</p>
+            <h1>{{ settings.welcome_title }}</h1>
+            <h2>{{ settings.girl_name }}</h2>
+            <p class="typing-line" data-text="{{ settings.welcome_message|escape }}"></p>
+            <div class="smile-chips" aria-hidden="true">
+                <span>Smile compulsory</span>
+                <span>Blush allowed</span>
+                <span>Birthday glow on</span>
+            </div>
+        </section>
+
+        {% if letter %}
+        <section class="story-section letter-section" data-aos="fade-up">
+            <p class="eyebrow">{{ letter.title }}</p>
+            <div class="letter-card">
+                <p id="letterText" data-letter="{{ letter.message|escape }}"></p>
+                <strong>{{ letter.signature }}</strong>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if timeline %}
+        <section class="story-section" data-aos="fade-up">
+            <p class="eyebrow">Beautiful Memories</p>
+            <h2 class="section-title">Our Little Timeline</h2>
+            <div class="timeline">
+                {% for memory in timeline %}
+                <article class="timeline-item" data-aos="fade-up">
+                    <span>{{ memory.event_date|date:"M d, Y" }}</span>
+                    <h3>{{ memory.title }}</h3>
+                    <p>{{ memory.description }}</p>
+                    {% if memory.image %}<img src="{{ memory.image.url }}" alt="{{ memory.title }}">{% endif %}
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if gallery %}
+        <section class="story-section" data-aos="fade-up">
+            <p class="eyebrow">Captured Smiles</p>
+            <h2 class="section-title">Sweet Gallery</h2>
+            <div class="gallery-grid">
+                {% for photo in gallery %}
+                <button class="gallery-item" type="button" data-full="{{ photo.image.url }}" aria-label="Open {{ photo.caption }}">
+                    <img src="{{ photo.image.url }}" alt="{{ photo.caption }}">
+                    <span>{{ photo.caption }}</span>
+                </button>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if reasons %}
+        <section class="story-section" data-aos="fade-up">
+            <p class="eyebrow">Reason After Reason</p>
+            <h2 class="section-title">Why You Are Special</h2>
+            <div class="reason-grid">
+                {% for reason in reasons %}
+                <article class="reason-card" data-aos="zoom-in">
+                    <b>{{ reason.icon }}</b>
+                    <h3>{{ reason.title }}</h3>
+                    <p>{{ reason.description }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if hidden_memories %}
+        <section class="story-section" data-aos="fade-up">
+            <p class="eyebrow">Tiny Secrets</p>
+            <h2 class="section-title">Hidden Memories</h2>
+            <div class="secret-grid">
+                {% for secret in hidden_memories %}
+                <button class="secret-card" type="button" data-message="{{ secret.message|escape }}">
+                    <img src="{{ secret.image.url }}" alt="Hidden memory {{ forloop.counter }}">
+                    <span>Tap to reveal</span>
+                </button>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="story-section finale-section" data-aos="fade-up">
+            <div class="balloon-field" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="eyebrow">Grand Finale</p>
+            <h2>Happy Birthday, {{ settings.girl_name }} ❤️</h2>
+            <p>{{ settings.footer_text }}</p>
+            <form id="replyForm" class="reply-card" method="post" action="{% url 'save_reply' %}">
+                {% csrf_token %}
+                <h3>Aapko hamara surprise pasand aaya?</h3>
+                <p>Aur aap kuch sandesh dena chahoge mujhe vese idhar type karke chle na chle to aap try karlo bhene ka nhi to kal face to face bta dena ma'am sahab intejar rhega?</p>
+                <textarea name="message" rows="3" placeholder="Kuch cute sa reply likhna ho to..."></textarea>
+                <div class="reply-actions">
+                    <button type="submit" name="answer" value="yes">Yes ❤️</button>
+                    <button type="submit" name="answer" value="no">No 😢</button>
+                </div>
+                <small id="replyStatus"></small>
+            </form>
+            <div class="melt-photo">
+                <button id="meltPhotoButton" class="melt-photo-trigger" type="button">yha dekho ❤️</button>
+                <div id="meltPhotoStage" class="melt-photo-stage" aria-live="polite">
+                    <div class="melt-photo-frame">
+                        <img src="{{ settings.hero_photo3.url }}" alt="{{ settings.girl_name }}">
+                        <span>❤️</span>
+                        <span>💖</span>
+                        <span>💕</span>
+                    </div>
+                    <p>↑ yha ham pighal gye ❤️</p>
+                </div>
+            </div>
+            <button id="finaleButton" type="button">Celebrate Again</button>
+        </section>
+    </main>
+
+    <div id="cuteNote" class="cute-note" aria-live="polite"></div>
+
+    <div class="music-player" id="musicPlayer">
+        <button id="musicToggle" type="button" aria-label="Play music">▶</button>
+        <div>
+            <strong>A Song For You</strong>
+            <input id="musicProgress" type="range" min="0" max="100" value="0">
+        </div>
+        <input id="volumeControl" type="range" min="0" max="1" step="0.05" value="0.7" aria-label="Volume">
+        <audio
+            id="birthdayMusic"
+            preload="auto"
+            loop
+            data-autoplay="{{ settings.autoplay_music|yesno:'true,false' }}"
+            {% if settings.favorite_song %}src="{{ settings.favorite_song.url }}"{% endif %}>
+        </audio>
+    </div>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+        <button type="button" id="closeLightbox" aria-label="Close">×</button>
+        <img id="lightboxImage" src="" alt="">
+    </div>
+</div>
+
+<script>
+const birthday = "{{ settings.birthday|date:'c' }}";
+const correctName = "{{ settings.girl_name|lower|escapejs }}";
+const correctPassword = "{{ settings.unlock_password|escapejs }}";
+const birthdayName = "{{ settings.girl_name|escapejs }}";
+const confettiEnabled = {{ settings.enable_confetti|yesno:"true,false" }};
+</script>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+/* ==========================================================
+   ANIMATIONS
+==========================================================*/
+
+/* Aurora Movement */
+
+@keyframes aurora{
+
+    0%{
+
+        transform:translate(-100px,-80px) scale(1);
+
+    }
+
+    50%{
+
+        transform:translate(180px,120px) scale(1.25);
+
+    }
+
+    100%{
+
+        transform:translate(-60px,220px) scale(.9);
+
+    }
+
+}
+
+/* Heart Beat */
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    25%{
+
+        transform:scale(1.12);
+
+    }
+
+    50%{
+
+        transform:scale(.95);
+
+    }
+
+    75%{
+
+        transform:scale(1.18);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* Loading Bar */
+
+@keyframes loading{
+
+    from{
+
+        width:0%;
+
+    }
+
+    to{
+
+        width:100%;
+
+    }
+
+}
+
+/* Floating */
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-12px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* Fade Up */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Fade Out */
+
+@keyframes fadeOut{
+
+    to{
+
+        opacity:0;
+
+        visibility:hidden;
+
+    }
+
+}
+
+/* Glow */
+
+@keyframes glow{
+
+    0%{
+
+        box-shadow:0 0 10px rgba(255,79,160,.4);
+
+    }
+
+    50%{
+
+        box-shadow:
+        0 0 35px rgba(255,79,160,.8),
+        0 0 80px rgba(157,77,255,.6);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 10px rgba(255,79,160,.4);
+
+    }
+
+}
+
+/* Stars */
+
+@keyframes twinkle{
+
+    0%{
+
+        opacity:.15;
+
+    }
+
+    50%{
+
+        opacity:.45;
+
+    }
+
+    100%{
+
+        opacity:.15;
+
+    }
+
+}
