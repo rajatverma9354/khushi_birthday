@@ -149,3 +149,5 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
 SURPRISE_NOTIFY_EMAIL = os.environ.get("SURPRISE_NOTIFY_EMAIL", "")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+WHITENOISE_USE_FINDERS = True
