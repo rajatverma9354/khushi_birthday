@@ -247,7 +247,7 @@
 </div>
 
 <script>
-const birthday = "{{ settings.birthday|date:'c' }}";
+const birthday = "{{ settings.birthday|date:'Y-m-d' }}T00:00:00+05:30";
 const correctName = "{{ settings.girl_name|lower|escapejs }}";
 const correctPassword = "{{ settings.unlock_password|escapejs }}";
 const birthdayName = "{{ settings.girl_name|escapejs }}";

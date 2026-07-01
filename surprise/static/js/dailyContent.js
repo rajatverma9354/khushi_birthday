@@ -5,16 +5,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!shayariElement || !songNameElement || !audio) return;
 
+    function getTodayInIst() {
+        const parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: "Asia/Kolkata",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        }).formatToParts(new Date());
+        const dateParts = Object.fromEntries(
+            parts
+                .filter(part => part.type !== "literal")
+                .map(part => [part.type, part.value])
+        );
+
+        return `${dateParts.year}-${dateParts.month}-${dateParts.day}`;
+    }
+
     try {
         const response = await fetch("/static/data/daily_content.json");
         if (!response.ok) throw new Error("Daily content not found");
 
         const data = await response.json();
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const dd = String(today.getDate()).padStart(2, "0");
-        const todayString = `${yyyy}-${mm}-${dd}`;
+        const todayString = getTodayInIst();
         const sortedContent = data
             .filter(item => item.date && item.song)
             .sort((a, b) => a.date.localeCompare(b.date));
